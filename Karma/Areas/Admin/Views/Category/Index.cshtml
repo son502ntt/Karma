@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Karma.Areas.Admin.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GhiChu)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @{
+
+        if (Model == null)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        <p> Hiện không có dữ liệu !!!</p>
+                    </td>
+                </tr>
+            </tbody>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaLoai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenLoai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GhiChu)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.MaLoai }) |
+                            @Html.ActionLink("Detail", "Detail", new { id = item.MaLoai }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MaLoai })
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        }
+    }
+</table>

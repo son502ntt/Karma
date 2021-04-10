@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Karma.Areas.Admin.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaSanPham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenSanPham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TinhTrang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnhSanPham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaLoai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @{
+
+        if (Model == null)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        <p> Hiện không có dữ liệu !!!</p>
+                    </td>
+                </tr>
+            </tbody>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tbody>                
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaSanPham)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenSanPham)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MoTa)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TinhTrang)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnhSanPham)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SoLuong)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaLoai)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.MaSanPham }) |
+                                @Html.ActionLink("Detail", "Detail", new { id = item.MaSanPham }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.MaSanPham })
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+            }
+        }
+</table>
