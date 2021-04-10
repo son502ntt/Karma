@@ -14,6 +14,6 @@ namespace Karma.Areas.Admin.Models
         public string Gia { get; set; }
         public string AnhSanPham { get; set; }
         public string SoLuong { get; set; }
-        public string MaLoai { get; set; }
+        public List<string> TenLoai { get; set; }
     }
 }

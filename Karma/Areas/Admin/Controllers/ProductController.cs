@@ -53,7 +53,22 @@ namespace Karma.Areas.Admin.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse response = client.Get("Categorys");
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            if (data != null)
+            {
+                var list = new List<Category>();
+                foreach (var item in data)
+                {
+                    list.Add(JsonConvert.DeserializeObject<Category>(((JProperty)item).Value.ToString()));
+                }
+                return View(list);
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
         public async Task<ActionResult> Create(Product product, HttpPostedFileBase file)

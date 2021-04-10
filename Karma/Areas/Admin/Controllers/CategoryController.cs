@@ -63,31 +63,6 @@ namespace Karma.Areas.Admin.Controllers
          
             return View();
         }
-        //public async void Upload(FileStream stream, string fileName)
-        //{
-
-        //    var auth = new FirebaseAuthProvider(new Firebase.Auth.FirebaseConfig(ApiKey));
-        //    var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
-        //    var cancellation = new CancellationTokenSource();
-        //    var task = new FirebaseStorage(
-        //        Bucket,
-        //        new FirebaseStorageOptions
-        //        {
-        //            AuthTokenAsyncFactory = () => Task.FromResult(a.FirebaseToken),
-        //            ThrowOnCancel = true
-        //        })
-        //        .Child("images")
-        //        .Child(fileName)
-        //        .PutAsync(stream, cancellation.Token);
-        //    try
-        //    {
-        //        string link = await task;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Exception was thrown: {0}", ex);
-        //    }
-        //}
         private void AddCategoryToFirebase(Category category)
         {
             client = new FireSharp.FirebaseClient(config);

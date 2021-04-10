@@ -34,8 +34,8 @@ namespace Karma.Areas.Admin.Controllers
         public ActionResult Index()
         {
             client = new FireSharp.FirebaseClient(config);
-            FirebaseResponse response = client.Get("Customers");
-            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            FirebaseResponse response = client.Get("Customers");// get json
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);// boc tach json
             if (data != null)
             {
                 var list = new List<Customer>();
@@ -109,6 +109,7 @@ namespace Karma.Areas.Admin.Controllers
             FirebaseResponse response = client.Get("Customers/" + id);
             Customer data = JsonConvert.DeserializeObject<Customer>(response.Body);
             return View(data);
+            // lay xu ly nay dua len Create la get dc data vo viewmodel cai nay moi dung
         }
         [HttpGet]
         public ActionResult Edit(string id)
