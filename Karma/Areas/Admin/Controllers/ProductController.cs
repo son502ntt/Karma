@@ -34,8 +34,8 @@ namespace Karma.Areas.Admin.Controllers
         public ActionResult Index()
         {
             client = new FireSharp.FirebaseClient(config);
-            FirebaseResponse response = client.Get("Products");
-            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+            FirebaseResponse response = client.Get("Products");// get json
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);// boc tach json
             if (data != null)
             {
                 var list = new List<Product>();
@@ -49,7 +49,6 @@ namespace Karma.Areas.Admin.Controllers
             {
                 return View();
             }
-
         }
         public ActionResult Create()
         {
@@ -58,11 +57,14 @@ namespace Karma.Areas.Admin.Controllers
             dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
             if (data != null)
             {
-                var list = new List<Category>();
+                int? selectedId = null;
+                var list = new Product();
+                var listCategory = new List<Category>();
                 foreach (var item in data)
                 {
-                    list.Add(JsonConvert.DeserializeObject<Category>(((JProperty)item).Value.ToString()));
+                    list.TenLoai.Add(JsonConvert.DeserializeObject<Category>(((JProperty)item).Value.ToString()));
                 }
+                ViewBag.ListCategories = new SelectList(list.TenLoai, "MaLoai","TenLoai", selectedId);
                 return View(list);
             }
             else
@@ -82,7 +84,7 @@ namespace Karma.Areas.Admin.Controllers
                 await Task.Run(() => Upload(stream, file.FileName));
                 AddProductToFirebase(product);
             }
-            return View();
+            return RedirectToAction("Index","Product");
         }
         public async void Upload(FileStream stream, string fileName)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Karma.Areas.Admin.Models
 {
@@ -9,6 +10,6 @@ namespace Karma.Areas.Admin.Models
     {
         public string MaLoai { get; set; }
         public string TenLoai { get; set; }
-        public string GhiChu { get; set; }      
+        public string GhiChu { get; set; }
     }
 }
