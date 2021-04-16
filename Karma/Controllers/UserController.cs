@@ -9,11 +9,11 @@ namespace Karma.Controllers
     public class UserController : Controller
     {
         // GET: User
-        public ActionResult Login()
+        public ActionResult IndexUser()
         {
             return View();
         }
-        public ActionResult Tracking()
+        public ActionResult Login()
         {
             return View();
         }

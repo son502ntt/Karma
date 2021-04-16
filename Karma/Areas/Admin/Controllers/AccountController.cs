@@ -40,10 +40,11 @@ namespace Karma.Areas.Admin.Controllers
 
             return View();
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
+
             try
             {
                 // Verification.
@@ -63,7 +64,8 @@ namespace Karma.Areas.Admin.Controllers
             return this.View();
         }
         [HttpPost]
-        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        //[AllowAnonymous]
         public async Task<ActionResult> Login(Login model, string returnUrl)
         {
 
@@ -80,7 +82,8 @@ namespace Karma.Areas.Admin.Controllers
                     {
 
                         this.SignInUser(user.Email, token, false);
-                        return this.RedirectToLocal(returnUrl);
+                        Session["User"] = user.Email;
+                        return RedirectToAction("IndexAdmin", "Index");
 
                     }
                     else
@@ -110,14 +113,15 @@ namespace Karma.Areas.Admin.Controllers
                 claims.Add(new Claim(ClaimTypes.Email, email));
                 claims.Add(new Claim(ClaimTypes.Authentication, token));
                 var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                var ctx = Request.GetOwinContext();
-                var authenticationManager = ctx.Authentication;
+                //var ctx = Request.GetOwinContext();
+                //var authenticationManager = ctx.Authentication;
                 // Sign In.
-                authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
+                //authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
             }
             catch (Exception ex)
             {
                 // Info
+                Console.WriteLine("Loi: " + ex.Message);
                 throw ex;
             }
         }
@@ -138,37 +142,19 @@ namespace Karma.Areas.Admin.Controllers
                 throw ex;
             }
         }
-
-        private ActionResult RedirectToLocal(string returnUrl)
+        public ActionResult LogOut()
         {
-            try
+            Session["User"] = null; // remove session
+            if (Request.Cookies["user"] != null)
             {
-                // Verification.
-                if (Url.IsLocalUrl(returnUrl))
+                var user = new HttpCookie("user")
                 {
-                    // Info.
-                    return this.Redirect(returnUrl);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Info
-                throw ex;
-            }
-
-            // Info.
-            return this.RedirectToAction("LogOff", "Account");
+                    Expires = DateTime.Now.AddDays(-1),
+                    Value = null
+                };
+                Response.SetCookie(user);
+            } // Xoa cookie 
+            return RedirectToAction("Login", "Account"); //Chuyen huong sang trang dang nhap
         }
-
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult LogOff()
-        {
-            var ctx = Request.GetOwinContext();
-            var authenticationManager = ctx.Authentication;
-            authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login", "Account");
-        }
-
     }
 }
