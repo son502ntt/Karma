@@ -44,7 +44,13 @@ namespace Karma.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
+            HttpCookie cookie = Request.Cookies["Remember"];
+            if (cookie != null)
+            {
+                ViewBag.Email = cookie["Email"].ToString();
+                ViewBag.Password = cookie["Pass"].ToString();
 
+            }
             try
             {
                 // Verification.
@@ -74,6 +80,16 @@ namespace Karma.Areas.Admin.Controllers
                 // Verification.
                 if (ModelState.IsValid)
                 {
+                    HttpCookie cookie = new HttpCookie("Remember");
+                    if(model.RememberMe == true)
+                    {
+                        cookie["Email"] = model.Email;
+                        cookie["Pass"] = model.Password;
+                        cookie.HttpOnly = true;
+                        cookie.Expires.AddYears(1);
+                        HttpContext.Response.Cookies.Add(cookie);
+
+                    }
                     var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
                     var ab = await auth.SignInWithEmailAndPasswordAsync(model.Email, model.Password);
                     string token = ab.FirebaseToken;

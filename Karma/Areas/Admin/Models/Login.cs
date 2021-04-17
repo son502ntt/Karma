@@ -17,5 +17,7 @@ namespace Karma.Areas.Admin.Models
         
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }
