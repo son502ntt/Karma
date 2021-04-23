@@ -1,0 +1,207 @@
+﻿
+@model Karma.Models.SignUp
+@{
+    ViewBag.Title = "SignUp";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin - Start Bootstrap Template</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/Assets/Admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="~/Assets/Admin/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="~/Assets/Admin/css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark">
+
+    <div class="container">
+        <div class="card card-register mx-auto mt-5">
+            <div class="card-header">Đăng ký</div>
+            <div class="card-body">
+
+                @using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="form-row">
+                            @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập họ tên", type = "text", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập địa chỉ", type = "text", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập số điện thoại", required = "required", id = "mobile" } })
+                            @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label " })
+                            @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", placeholder = "mm/dd/yyyy", id = "BirthDay" } })
+                            @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label " })
+                            <br />
+                            <div style="width:100%">
+                                Nam
+                                @Html.RadioButtonFor(model => model.GioiTinh, "Nam")
+                                Nữ
+                                @Html.RadioButtonFor(model => model.GioiTinh, "Nữ")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập email", type = "email", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập mật khẩu", type = "password", required = "required", id = "pass" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", placeholder = "Xác nhận lại mật khẩu", type = "password", required = "required", id = "repass" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger", id = "message" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(model => model.CodeActive, new { @Value = DateTime.Now.Millisecond.ToString() })
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-block checkmobile" value="Đăng ký" />
+                }
+                <div class="text-center">
+                    @Html.ActionLink("Quay lại trang đăng nhập", "Login", "Account", new { @class = "d-block small mt-3" })
+                    <a class="d-block small" href="forgot-password.html">Quên mật khẩu?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Assets/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Assets/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-storage.js"></script>
+
+    <script>
+        try {
+            var firebaseConfig = {
+                apiKey: "AIzaSyBIumAxnSssgty3e16QnkzmBVB3GqFvqqM",
+                authDomain: "karma-ddc59.firebaseapp.com",
+                databaseURL: "https://karma-ddc59-default-rtdb.firebaseio.com",
+                projectId: "karma-ddc59",
+                storageBucket: "karma-ddc59.appspot.com",
+                messagingSenderId: "696207443864",
+                appId: "1:696207443864:web:fb7cba63250112e70bcded",
+                measurementId: "G-LNKZK3BGTL"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+            var storage = firebase.storage();
+        }
+        catch (e) {
+            console.log(e.toString());
+        }
+        function ShowImage() {
+            var imageLink = "gs://karma-ddc59.appspot.com/images/lotte.jpg";
+            try {
+                storage.refFromURL(imageLink.toString()).getDownloadURL().then(function (url) {
+                    console.log(url)
+                    var img = document.getElementById('images');
+                    img.src = url.toString();
+                }).catch(function (error) {
+                    console.log(error.toString());
+                });
+            }
+            catch (e) {
+                console.log(e.toString());
+            }
+        }
+    </script>
+
+    @if (ViewBag.MessSuccess != null)
+    {
+        <script>
+            alert("Đăng ký thành công !!! Vui lòng kiểm tra email để kích hoạt tài khoản");
+            window.location = "/User/Login";
+        </script>
+    }
+    else if (ViewBag.MessFailed != null)
+    {
+        <script>
+            alert("Email đã được đăng ký");
+          
+        </script>
+    }
+    <script>
+        $(document).ready(function () {
+            document.getElementById("BirthDay").defaultValue = "2003-01-01";
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('body').on('click', '.checkmobile', function () {
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var mobile = $('#mobile').val();
+                if (mobile !== '') {
+                    if (vnf_regex.test(mobile) == false) {
+                        alert('Số điện thoại của bạn không đúng định dạng!');
+                        return false;
+                    }
+                }
+            }); 
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('body').on('click', '.checkmobile', function () {
+                var pass = $('#pass').val();
+                var repass = $('#repass').val();
+                if (pass != repass) {
+                    alert('Mật khẩu không trùng khớp');
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html >

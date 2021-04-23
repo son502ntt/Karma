@@ -1,0 +1,41 @@
+﻿@model Karma.Models.SignUp
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VerifyEmail</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card card-register mx-auto mt-5">
+            <div class="card-header">Đăng ký</div>
+            <div class="card-body">
+
+                @using (Html.BeginForm("VerifyEmail", "User"))
+                {
+                    <input type="submit" class="btn btn-primary btn-block" value="Xác nhận" />
+                }
+            </div>
+        </div>
+        @if (ViewBag.Success != null)
+        {
+            <script>
+                alert("Kích hoạt tài khoản thành công");
+                window.location = "/User/Login";
+            </script>
+        }
+        else if (ViewBag.Failed != null)
+        {
+            <script>
+                alert("Lỗi không xác định");
+            </script>
+        }
+</body>
+
+</html>

@@ -9,7 +9,7 @@ namespace Karma.Areas.Admin.Models
     public class SignUp
     {
         [Key]
-        public int id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [Display(Name = "Name")]

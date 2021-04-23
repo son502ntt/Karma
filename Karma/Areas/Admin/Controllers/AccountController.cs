@@ -44,7 +44,7 @@ namespace Karma.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Login(string returnUrl)
         {
-            HttpCookie cookie = Request.Cookies["Remember"];
+            HttpCookie cookie = Request.Cookies["RememberUser"];
             if (cookie != null)
             {
                 ViewBag.Email = cookie["Email"].ToString();
@@ -80,7 +80,7 @@ namespace Karma.Areas.Admin.Controllers
                 // Verification.
                 if (ModelState.IsValid)
                 {
-                    HttpCookie cookie = new HttpCookie("Remember");
+                    HttpCookie cookie = new HttpCookie("RememberUser");
                     if(model.RememberMe == true)
                     {
                         cookie["Email"] = model.Email;

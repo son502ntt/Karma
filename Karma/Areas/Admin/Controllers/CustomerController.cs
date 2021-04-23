@@ -61,7 +61,7 @@ namespace Karma.Areas.Admin.Controllers
             FileStream stream;
             if (file.ContentLength > 0)
             {
-                string path = Path.Combine(Server.MapPath("~/Assets/Client/img/"), file.FileName);
+                string path = Path.Combine(Server.MapPath("~/Assets/User/img/"), file.FileName);
                 file.SaveAs(path);
                 stream = new FileStream(Path.Combine(path), FileMode.Open);
                 await Task.Run(() => Upload(stream, file.FileName));
@@ -109,7 +109,7 @@ namespace Karma.Areas.Admin.Controllers
             FirebaseResponse response = client.Get("Customers/" + id);
             Customer data = JsonConvert.DeserializeObject<Customer>(response.Body);
             return View(data);
-            // lay xu ly nay dua len Create la get dc data vo viewmodel cai nay moi dung
+            
         }
         [HttpGet]
         public ActionResult Edit(string id)

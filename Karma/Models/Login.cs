@@ -9,7 +9,7 @@ namespace Karma.Models
     public class Login
     {
         [Key]
-        public int id { get; set; }
+        public string Id { get; set; }
 
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -17,5 +17,7 @@ namespace Karma.Models
 
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        public bool RememberMe { get; set; }
     }
 }

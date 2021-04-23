@@ -24,33 +24,36 @@
                     <div class="hover">
                         <h4>New to our website?</h4>
                         <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-                        <a class="primary-btn" href="registration.html">Create an Account</a>
+                        @Html.ActionLink("Create an Account", "SignUp", "User", new { @class = "primary-btn" })
+
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner">
                     <h3>Log in to enter</h3>
-                    @using (Html.BeginForm("","", new { ReturnUrl = ViewBag.ReturnUrl },FormMethod.Post, new { @class = "row login_form" }))
+                    @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "row login_form" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="col-md-12 form-group">
-                    
+                        <div class="col-md-12 form-group">
 
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter email", type = "email",onfocus="this.placeholder = ''", onblur="this.placeholder = 'Enter Email'" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-md-12 form-group">
-                   
-                        
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password", onfocus = "this.placeholder = ''", onblur = "this.placeholder = 'Password'" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
+
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter email", type = "email", onfocus = "this.placeholder = ''", onblur = "this.placeholder = 'Enter Email'", Value = ViewBag.Email } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-12 form-group">
+
+
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password", onfocus = "this.placeholder = ''", onblur = "this.placeholder = 'Password'", Value = ViewBag.Password } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
-                                <input type="checkbox" id="f-option2" name="selector">
-                                <label for="f-option2">Keep me logged in</label>
+                                <label for="f-option2">
+                                    @Html.CheckBoxFor(model => model.RememberMe)
+                                    Keep me logged in
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-12 form-group">
@@ -58,9 +61,21 @@
                             <a href="#">Forgot Password?</a>
                         </div>
                     }
-                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+@if (ViewBag.Mess != null)
+{
+    <script>
+        alert("Sai tài khoản hoặc mật khẩu");
+    </script>
+}
+else if (ViewBag.MessVRF != null)
+{
+    <script>
+        alert("Email chưa được kích hoạt");
+    </script>
+}
 <!--================End Login Box Area =================-->
