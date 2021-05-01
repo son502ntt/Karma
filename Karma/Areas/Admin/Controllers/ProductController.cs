@@ -62,9 +62,9 @@ namespace Karma.Areas.Admin.Controllers
                 var listCategory = new List<Category>();
                 foreach (var item in data)
                 {
-                    list.TenLoai.Add(JsonConvert.DeserializeObject<Category>(((JProperty)item).Value.ToString()));
+                    list.ListLoai.Add(JsonConvert.DeserializeObject<Category>(((JProperty)item).Value.ToString()));
                 }
-                ViewBag.ListCategories = new SelectList(list.TenLoai, "MaLoai","TenLoai", selectedId);
+                ViewBag.ListCategories = new SelectList(list.ListLoai, "MaLoai","TenLoai", selectedId);
                 return View(list);
             }
             else
@@ -78,17 +78,19 @@ namespace Karma.Areas.Admin.Controllers
             FileStream stream;
             if (file.ContentLength > 0)
             {
-                string path = Path.Combine(Server.MapPath("~/Assets/Client/img/"), file.FileName);
+                string path = Path.Combine(Server.MapPath("~/Assets/User/img/"), file.FileName);
                 file.SaveAs(path);
                 stream = new FileStream(Path.Combine(path), FileMode.Open);
-                await Task.Run(() => Upload(stream, file.FileName));
+                var result = await Upload(stream, file.FileName);// thang nay co link thang upload no goi 2 lan
+                product.AnhSanPham = result; //no add link vo model cua anh san pham thi no lay dc link r no show ra th
                 AddProductToFirebase(product);
             }
             return RedirectToAction("Index","Product");
         }
-        public async void Upload(FileStream stream, string fileName)
-        {
 
+        public async Task<string> Upload(FileStream stream, string fileName)
+        {
+            
             var auth = new FirebaseAuthProvider(new Firebase.Auth.FirebaseConfig(ApiKey));
             var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
             var cancellation = new CancellationTokenSource();
@@ -104,12 +106,14 @@ namespace Karma.Areas.Admin.Controllers
                 .PutAsync(stream, cancellation.Token);
             try
             {
-                string link = await task;
+                  string link = await task;
+                return  link;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception was thrown: {0}", ex);
             }
+            return "Failed";
         }
         private void AddProductToFirebase(Product product)
         {
@@ -117,7 +121,7 @@ namespace Karma.Areas.Admin.Controllers
             var data = product;
             PushResponse response = client.Push("Products/", data);
             data.MaSanPham = response.Result.name;
-            SetResponse setResponse = client.Set("Products/" + data.MaSanPham, data);
+            SetResponse setResponse = client.Set("Products/" + data.MaSanPham, data);        
         }
         [HttpGet]
         public ActionResult Detail(string id)
@@ -125,6 +129,9 @@ namespace Karma.Areas.Admin.Controllers
             client = new FireSharp.FirebaseClient(config);
             FirebaseResponse response = client.Get("Products/" + id);
             Product data = JsonConvert.DeserializeObject<Product>(response.Body);
+            FirebaseResponse responseCategory = client.Get("Categorys/" + data.MaLoai);
+            dynamic dataCategory = JsonConvert.DeserializeObject<Category>(responseCategory.Body);
+            data.TenLoai = dataCategory.TenLoai;
             return View(data);
         }
         [HttpGet]

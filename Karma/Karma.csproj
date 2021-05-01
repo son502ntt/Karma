@@ -310,14 +310,19 @@
     <Compile Include="Areas\Admin\Models\Product.cs" />
     <Compile Include="Areas\Admin\Models\Category.cs" />
     <Compile Include="Areas\Admin\Models\SignUp.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs" />
+    <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\SignUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -372,6 +377,7 @@
     <Content Include="Assets\User\css\nouislider.min.css" />
     <Content Include="Assets\User\css\owl.carousel.css" />
     <Content Include="Assets\User\css\themify-icons.css" />
+    <Content Include="Assets\User\Scripts\AddtoCart.js" />
     <Content Include="favicon.ico" />
     <Content Include="Assets\User\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\User\fonts\glyphicons-halflings-regular.svg" />
@@ -716,10 +722,13 @@
     <Content Include="Views\Shop\ShopCategory.cshtml" />
     <Content Include="Views\Shop\ProductDetails.cshtml" />
     <Content Include="Views\Shop\ProductCheckout.cshtml" />
-    <Content Include="Views\Shop\ShoppingCart.cshtml" />
+    <Content Include="Views\Cart\ShoppingCart.cshtml" />
     <Content Include="Views\Shop\Confirmation.cshtml" />
     <Content Include="Views\User\SignUp.cshtml" />
     <Content Include="Views\User\VerifyEmail.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Shop\ProductsOfCategory.cshtml" />
+    <Content Include="Views\Cart\GioHangPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

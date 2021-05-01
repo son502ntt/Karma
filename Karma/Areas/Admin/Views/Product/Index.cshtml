@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.Gia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnhSanPham)
+                @Html.DisplayNameFor(model => model.AnhSanPham)      
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SoLuong)
@@ -74,7 +74,7 @@
                                 @Html.DisplayFor(modelItem => item.Gia)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.AnhSanPham)
+                                <img src="@item.AnhSanPham" style="max-width:100px" />
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.SoLuong)

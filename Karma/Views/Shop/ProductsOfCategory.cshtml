@@ -1,5 +1,8 @@
 ﻿@model Karma.Models.Shop
-
+@{
+    ViewBag.Title = "ProductsOfCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
     <div class="container">
@@ -25,8 +28,8 @@
                     @foreach (var item in Model.Categories)
                     {
                         <li class="main-nav-list">
-                            <a href="@Url.Action("ProductsOfCategory","Shop", new { id = item.MaLoai})" >
-                                <span class="lnr lnr-arrow-right"></span>@item.TenLoai                             
+                            <a data-toggle="collapse" aria-expanded="false" aria-controls="fruitsVegetable" href="@Url.Action("ProductsOfCategory","Shop", new { id = item.MaLoai})">
+                                <span class="lnr lnr-arrow-right"></span>@item.TenLoai
                             </a>
                         </li>
                     }
@@ -114,14 +117,14 @@
             <!-- End Filter Bar -->
             <!-- Start Best Seller -->
             <section class="lattest-product-area pb-40 category-list">
-               
+
                 <div class="row">
                     @foreach (var item in Model.Products)
                     {
                         <!-- single product -->
                         <div class="col-lg-4 col-md-6">
                             <div class="single-product">
-                                <a href="@Url.Action("ProductDetails","Shop", new { id = item.MaSanPham})" > 
+                                <a href="@Url.Action("ProductDetails","Shop", new { id = item.MaSanPham})">
                                     <img class="img-fluid" src="@item.AnhSanPham" alt="">
                                 </a>
                                 <div class="product-details">
@@ -155,9 +158,9 @@
                                 </div>
                             </div>
                         </div>
-                      
-                   
-                }
+
+
+                    }
             </section>
             <!-- End Best Seller -->
             <!-- Start Filter Bar -->

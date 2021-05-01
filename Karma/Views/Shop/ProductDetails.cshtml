@@ -1,4 +1,5 @@
-﻿	<!-- Start Banner Area -->
+﻿@model Karma.Models.Products
+<!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -21,32 +22,31 @@
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="~/Assets/Client/img/category/s-p1.jpg" alt="">            
+                        <img class="img-fluid" src="@Model.AnhSanPham" alt=""> 
                     </div>
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="~/Assets/Client/img/category/s-p1.jpg" alt="">
+                        <img class="img-fluid" src="~/Assets/User/img/category/s-p1.jpg" alt="">
                     </div>
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="~/Assets/Client/img/category/s-p1.jpg" alt="">
+                        <img class="img-fluid" src="~/Assets/User/img/category/s-p1.jpg" alt="">
                     </div>
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>Faded SkyBlu Denim Jeans</h3>
-                    <h2>$149.99</h2>
+                    <h3>@Model.TenSanPham</h3>
+                    <h2>@String.Format("{0:0,0}", @Model.Gia) VNĐ</h2>
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Category</span> : Household</a></li>
-                        <li><a href="#"><span>Availibility</span> : In Stock</a></li>
+                        <li><a class="active" href="#"><span>Loại</span> : @Model.TenLoai</a></li>
+                        <li><a href="#"><span>Tình trạng</span> : @Model.TinhTrang</a></li>
                     </ul>
                     <p>
-                        Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-                        something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-                        during the winter.
+                        @Model.MoTa
                     </p>
                     <div class="product_count">
                         <label for="qty">Quantity:</label>
                         <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+                        @*@Html.TextBox("SoLuong", 1 ,new { @class = "input-text qty", id= "sst", maxlength = "2", type = "" })*@
                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
                                 class="increase items-count" type="button">
                             <i class="lnr lnr-chevron-up"></i>
@@ -57,9 +57,17 @@
                         </button>
                     </div>
                     <div class="card_area d-flex align-items-center">
-                        <a class="primary-btn" href="#">Add to Cart</a>
+                        <a class="primary-btn" onclick="AddToCart('@Model.MaSanPham')"> Add to Cart</a>
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                    </div>
+                    <div class="alert alert-success hiden-success" id="success-alert" style="position: fixed">
+                        <button type="button" class="close" data-dismiss="alert">x</button>
+                        Thêm vào giỏ hàng thành công <a href="@Url.Action("ShoppingCart","Cart")">Vào giỏ hàng</a>
+                    </div>
+                    <div id="failed">
+                        <p><i class="fa fa-warning"></i></p>
+                        Xin lỗi ! Quá số lượng tồn kho
                     </div>
                 </div>
             </div>
@@ -188,7 +196,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="~/Assets/Client/img/product/review-1.png" alt="">
+                                        <img src="~/Assets/User/img/product/review-1.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -205,7 +213,7 @@
                             <div class="review_item reply">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="~/Assets/Client/img/product/review-2.png" alt="">
+                                        <img src="~/Assets/User/img/product/review-2.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -222,7 +230,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="~/Assets/Client/img/product/review-3.png" alt="">
+                                        <img src="~/Assets/User/img/product/review-3.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -318,7 +326,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="~/Assets/Client/img/product/review-1.png" alt="">
+                                        <img src="~/Assets/User/img/product/review-1.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -338,7 +346,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="~/Assets/Client/img/product/review-2.png" alt="">
+                                        <img src="~/Assets/User/img/product/review-2.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -358,7 +366,7 @@
                             <div class="review_item">
                                 <div class="media">
                                     <div class="d-flex">
-                                        <img src="~/Assets/Client/img/product/review-3.png" alt="">
+                                        <img src="~/Assets/User/img/product/review-3.png" alt="">
                                     </div>
                                     <div class="media-body">
                                         <h4>Blake Ruiz</h4>
@@ -441,7 +449,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r1.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r1.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -453,7 +461,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r2.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r2.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -465,7 +473,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r3.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r3.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -477,7 +485,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r5.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r5.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -489,7 +497,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r6.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r6.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -501,7 +509,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r7.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r7.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -513,7 +521,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r9.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r9.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -525,7 +533,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r10.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r10.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -537,7 +545,7 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Assets/Client/img/r11.jpg" alt=""></a>
+                            <a href="#"><img src="~/Assets/User/img/r11.jpg" alt=""></a>
                             <div class="desc">
                                 <a href="#" class="title">Black lace Heels</a>
                                 <div class="price">
@@ -552,7 +560,7 @@
             <div class="col-lg-3">
                 <div class="ctg-right">
                     <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="~/Assets/Client/img/category/c5.jpg" alt="">
+                        <img class="img-fluid d-block mx-auto" src="~/Assets/User/img/category/c5.jpg" alt="">
                     </a>
                 </div>
             </div>

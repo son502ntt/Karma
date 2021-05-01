@@ -59,7 +59,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", type = "email", required="" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,21 +73,21 @@
         </div>
 
         <div class="form-group">
-            Image
+            @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" class="form-control" name="file" accept="image/*" required />
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
 
             </div>
-        </div>
-        <input type="button" value="Show GS Image" onclick="ShowImage()" class="btn btn-default" />
+        </div>*@
+        @*<input type="button" value="Show GS Image" onclick="ShowImage()" class="btn btn-default" />*@
     </div>
-    <img id="images" height="200" width="200" src="" />
+    //<img id="images" height="200" width="200" src="" />
 }
 
 <div>
@@ -101,7 +101,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-storage.js"></script>
 
-<script>
+@*<script>
     try {
         var firebaseConfig = {
             apiKey: "AIzaSyBIumAxnSssgty3e16QnkzmBVB3GqFvqqM",
@@ -121,7 +121,7 @@
     catch (e) {
         console.log(e.toString());
     }
-    function ShowImage() {
+    $(document).ready(function (ShowImage) {function ShowImage() {
         var imageLink = "gs://karma-ddc59.appspot.com/images/lotte.jpg";
         try {
             storage.refFromURL(imageLink.toString()).getDownloadURL().then(function (url) {
@@ -136,5 +136,8 @@
             console.log(e.toString());
         }
     }
-</script>
+        console.log("ready!");
+    });
+    
+</script>*@
 

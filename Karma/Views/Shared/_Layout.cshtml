@@ -52,7 +52,7 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">Shop</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item">@Html.ActionLink("Shop Category","ShopCategory","Shop",null,new { @class = "nav-link" })</li>
+                                    <li class="nav-item">@Html.ActionLink("Shop Category", "ShopCategory", "Shop", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Product Details", "ProductDetails", "Shop", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Product Checkout", "ProductCheckout", "Shop", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Shopping Cart", "ShoppingCart", "Shop", null, new { @class = "nav-link" })</li>
@@ -72,13 +72,13 @@
                                    aria-expanded="false">Pages</a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">@Html.ActionLink("Login", "Login", "User", null, new { @class = "nav-link" })</li>
-                                    <li class="nav-item">@Html.ActionLink("Tracking","Tracking","User",null,new { @class = "nav-link" })</li>                        
+                                    <li class="nav-item">@Html.ActionLink("Tracking", "Tracking", "User", null, new { @class = "nav-link" })</li>
                                 </ul>
                             </li>
                             <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+                            @Html.Action("GioHangPart", "Cart")
                             <li class="nav-item">
                                 <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                             </li>
@@ -186,11 +186,11 @@
     <script src="~/Assets/User/Scripts/nouislider.min.js"></script>
     <script src="~/Assets/User/Scripts/countdown.js"></script>
     <script src="~/Assets/User/Scripts/jquery.magnific-popup.min.js"></script>
-    <script src="~/Assets/User/Scripts/owl.carousel.min.js"></script>  
+    <script src="~/Assets/User/Scripts/owl.carousel.min.js"></script>
     <!--gmaps Js-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="~/Assets/User/Scripts/gmaps.min.js"></script>
     <script src="~/Assets/User/Scripts/main.js"></script>
-
+    <script src="~/Assets/User/Scripts/AddtoCart.js"></script>
 </body>
 </html>

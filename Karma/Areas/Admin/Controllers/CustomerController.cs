@@ -64,16 +64,28 @@ namespace Karma.Areas.Admin.Controllers
                 string path = Path.Combine(Server.MapPath("~/Assets/User/img/"), file.FileName);
                 file.SaveAs(path);
                 stream = new FileStream(Path.Combine(path), FileMode.Open);
-                await Task.Run(() => Upload(stream, file.FileName));
-                AddCustomerToFirebase(customer);
+                var link = await Upload(stream, file.FileName);
+                customer.Avatar = link;
+                var result = AddCustomerToFirebase(customer);
+                if (result == true)
+                {
+                    ViewBag.MessSuccess = "Đăng ký thành công !!!";
+                }
+                else
+                {
+                    ViewBag.MessFailed = "Email đã được đăng ký";
+                }
+
+                return View(customer);
             }
-            return View();
+            return View(customer);
         }
-        public async void Upload(FileStream stream, string fileName)
+        public async Task<string> Upload(FileStream stream, string fileName)
         {
 
             var auth = new FirebaseAuthProvider(new Firebase.Auth.FirebaseConfig(ApiKey));
             var a = await auth.SignInWithEmailAndPasswordAsync(AuthEmail, AuthPassword);
+            string link = "";
             var cancellation = new CancellationTokenSource();
             var task = new FirebaseStorage(
                 Bucket,
@@ -87,20 +99,40 @@ namespace Karma.Areas.Admin.Controllers
                 .PutAsync(stream, cancellation.Token);
             try
             {
-                string link = await task;
+                link = await task;
             }
             catch (Exception ex) 
             {
                 Console.WriteLine("Exception was thrown: {0}", ex);
             }
+            return link;
         }
-        private void AddCustomerToFirebase(Customer customer)
+        private bool AddCustomerToFirebase(Customer customer)
         {
-            client = new FireSharp.FirebaseClient(config);
+            customer.ID = Guid.NewGuid().ToString();
+            client = new FireSharp.FirebaseClient(config);// lấy quyến truy data
+            FirebaseResponse responseUser = client.Get("Customers");// lấy dât từ bảng "" => json
+            dynamic dataUser = JsonConvert.DeserializeObject<dynamic>(responseUser.Body);// bóc tách dữ liệu từ json
+            if (dataUser == null)
+            {
+                var data1 = customer;
+
+                SetResponse response1 = client.Set("Customers/" + customer.ID, data1);
+                return true;
+            }
+            foreach (var item in dataUser)
+            {
+                var list = JsonConvert.DeserializeObject<Customer>(((JProperty)item).Value.ToString());
+                if (list.Email == customer.Email)
+                {
+                    return false;
+                }
+            }
+
             var data = customer;
-            PushResponse response = client.Push("Customers/", data);
-            data.ID = response.Result.name;
-            SetResponse setResponse = client.Set("Customers/" + data.ID, data);
+
+            SetResponse response = client.Set("Customers/" + customer.ID, data);       
+            return true;
         }
         [HttpGet]
         public ActionResult Detail(string id)
