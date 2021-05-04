@@ -15,11 +15,13 @@ namespace Karma.Models
         public double? ThanhTien { get; set; }
         public double? TongTien { get; set; }
         public int TongSoLuong { get; set; }
+        public string AnhSanPham { get; set; }
 
-        public  Cart(string MaSP, double Gia, int SL, string TenSP)
+        public  Cart(string MaSP, double Gia, int SL, string TenSP, string AnhSP)
         {
             MaSanPham = MaSP;
             TenSanPham = TenSP;
+            AnhSanPham = AnhSP;
             SoLuong = SL;
             DonGia = Gia;
             ThanhTien = SoLuong * DonGia;

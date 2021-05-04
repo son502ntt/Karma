@@ -27,7 +27,7 @@ namespace Karma.Areas.Admin.Controllers
         };
         private static string ApiKey = "AIzaSyBIumAxnSssgty3e16QnkzmBVB3GqFvqqM";
         private static string AuthEmail = "sontrinh502tb@gmail.com";
-        private static string AuthPassword = "123456789";
+        private static string AuthPassword = "123456";
         private static string Bucket = "karma-ddc59.appspot.com";
         IFirebaseClient client;
         // GET: Admin/Product

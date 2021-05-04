@@ -31,7 +31,7 @@ namespace Karma.Areas.Admin.Controllers
                 var auth = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
 
                 var a = await auth.CreateUserWithEmailAndPasswordAsync(model.Email, model.Password, model.Name, true);
-                ModelState.AddModelError(string.Empty, "Please Verify your email then login Plz.");
+                ModelState.AddModelError(string.Empty, "Mời xác nhận Email và đăng nhập lại");
             }
             catch (Exception ex)
             {

@@ -20,7 +20,7 @@ namespace Karma.Areas.Admin.Models
         public string DiaChi { get; set; }
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Display(Name = "Số ddienj thoại")]
+        [Display(Name = "Số điện thoại")]
         public string SDT { get; set; }
         [Display(Name = "Avatar")]
         public string Avatar { get; set; }

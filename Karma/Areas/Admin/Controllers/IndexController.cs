@@ -13,7 +13,7 @@ namespace Karma.Areas.Admin.Controllers
         {
 
             if (Session["User"] == null)
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Login", "Account");
             else
                 return View();
         }

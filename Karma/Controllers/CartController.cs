@@ -42,7 +42,10 @@ namespace Karma.Controllers
         }
         public ActionResult ShoppingCart()
         {
-            return View();
+            List<Cart> listCart = GetCart();
+            ViewBag.TongSoLuong = TongSoLuong();
+            ViewBag.TongTien = TongTien();
+            return View(listCart);
         }
 
         [HttpPost]
@@ -64,7 +67,7 @@ namespace Karma.Controllers
             {
                 if(soluong < dataProduct.SoLuong)
                 {
-                    cart = new Cart(MaSP, dataProduct.Gia, soluong, dataProduct.TenSanPham);
+                    cart = new Cart(MaSP, dataProduct.Gia, soluong, dataProduct.TenSanPham, dataProduct.AnhSanPham);
                     warning = false;
                     listCart.Add(cart);
 
@@ -104,7 +107,7 @@ namespace Karma.Controllers
             if(warning)
             {
                 Cart ct = listCart.SingleOrDefault(m => m.MaSanPham == MaSP);
-                ct.ThanhTien = TongTien();
+                ct.TongTien = TongTien();
                 ct.TongSoLuong = TongSoLuong();
                 var result = cart;
                 return Json(new
@@ -116,7 +119,7 @@ namespace Karma.Controllers
             else
             {
                 Cart ct = listCart.SingleOrDefault(m => m.MaSanPham == MaSP);
-                ct.ThanhTien = TongTien();
+                ct.TongTien = TongTien();
                 ct.TongSoLuong = TongSoLuong();
                 var result = cart;
                 return Json(new

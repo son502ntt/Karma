@@ -33,23 +33,27 @@ namespace Karma.Areas.Admin.Controllers
         // GET: Admin/Category
         public ActionResult Index()
         {
-            client = new FireSharp.FirebaseClient(config);
-            FirebaseResponse response = client.Get("Categorys");
-            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
-            if (data != null)
-            {
-                var list = new List<Category>();
-                foreach (var item in data)
-                {
-                    list.Add(JsonConvert.DeserializeObject<Category>(((JProperty)item).Value.ToString()));
-                }
-                return View(list);
-            }
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             else
             {
-                return View();
+                client = new FireSharp.FirebaseClient(config);
+                FirebaseResponse response = client.Get("Categorys");
+                dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+                if (data != null)
+                {
+                    var list = new List<Category>();
+                    foreach (var item in data)
+                    {
+                        list.Add(JsonConvert.DeserializeObject<Category>(((JProperty)item).Value.ToString()));
+                    }
+                    return View(list);
+                }
+                else
+                {
+                    return View();
+                }
             }
-
         }
         public ActionResult Create()
         {

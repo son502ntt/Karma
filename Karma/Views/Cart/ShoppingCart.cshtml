@@ -1,4 +1,9 @@
-﻿ <!-- Start Banner Area -->
+﻿ @using Karma.Models
+@model List<Cart> 
+    @{ 
+        List<Cart> listCart = Session["Cart"] as List<Cart>;
+    }
+    <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -28,102 +33,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Assets/Client/img/cart.jpg" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>Minimalistic shop for multipurpose use</p>
-                                    </div>
+                        @foreach (var item in Model)
+                        {
+                    <tr>
+                        <td>
+                            <div class="media">
+                                <div class="d-flex">
+                                    <img src="@item.AnhSanPham" style="width:100px" alt="">
                                 </div>
-                            </td>
-                            <td>
-                                <h5>$360.00</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                           class="input-text qty">
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button">
-                                        <i class="lnr lnr-chevron-up"></i>
-                                    </button>
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button">
-                                        <i class="lnr lnr-chevron-down"></i>
-                                    </button>
+                                <div class="media-body">
+                                    <p>@item.TenSanPham</p>
                                 </div>
-                            </td>
-                            <td>
-                                <h5>$720.00</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Assets/Client/img/cart.jpg" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>Minimalistic shop for multipurpose use</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>$360.00</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                           class="input-text qty">
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button">
-                                        <i class="lnr lnr-chevron-up"></i>
-                                    </button>
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button">
-                                        <i class="lnr lnr-chevron-down"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>$720.00</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Assets/Client/img/cart.jpg" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>Minimalistic shop for multipurpose use</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>$360.00</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                           class="input-text qty">
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button">
-                                        <i class="lnr lnr-chevron-up"></i>
-                                    </button>
-                                    <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button">
-                                        <i class="lnr lnr-chevron-down"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>$720.00</h5>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                        <td>
+                            <h5>@String.Format("{0:0,0}", item.DonGia) VNĐ</h5>
+                        </td>
+                        <td>
+                            <div class="product_count">
+                                <input type="text" name="qty" id="sst" maxlength="12" value="@item.SoLuong" title="Quantity:"
+                                       class="input-text qty">
+                                <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                        class="increase items-count" type="button">
+                                    <i class="lnr lnr-chevron-up"></i>
+                                </button>
+                                <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                        class="reduced items-count" type="button">
+                                    <i class="lnr lnr-chevron-down"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <h5>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</h5>
+                        </td>
+                    </tr>
+                        }
                         <tr class="bottom_button">
                             <td>
                                 <a class="gray_btn" href="#">Update Cart</a>
@@ -145,7 +89,7 @@
                                 <h5>Subtotal</h5>
                             </td>
                             <td>
-                                <h5>$2160.00</h5>
+                                <h5>@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">
