@@ -1,0 +1,11 @@
+﻿@model IEnumerable<Karma.Models.Categories>
+<ul class="main-categories">
+    @foreach (var item in Model)
+    {
+        <li class="main-nav-list">
+            <a href="@Url.Action("ProductsOfCategory","Shop", new { id = item.MaLoai})">
+                <span class="lnr lnr-arrow-right"></span>@item.TenLoai
+            </a>
+        </li>
+    }
+    </ul>

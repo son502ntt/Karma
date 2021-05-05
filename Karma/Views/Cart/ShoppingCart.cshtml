@@ -1,9 +1,9 @@
-﻿ @using Karma.Models
-@model List<Cart> 
-    @{ 
-        List<Cart> listCart = Session["Cart"] as List<Cart>;
-    }
-    <!-- Start Banner Area -->
+﻿@using Karma.Models
+@model List<Cart>
+@{
+    List<Cart> listCart = Session["Cart"] as List<Cart>;
+}
+<!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -35,53 +35,40 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                    <tr>
-                        <td>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <img src="@item.AnhSanPham" style="width:100px" alt="">
-                                </div>
-                                <div class="media-body">
-                                    <p>@item.TenSanPham</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <h5>@String.Format("{0:0,0}", item.DonGia) VNĐ</h5>
-                        </td>
-                        <td>
-                            <div class="product_count">
-                                <input type="text" name="qty" id="sst" maxlength="12" value="@item.SoLuong" title="Quantity:"
-                                       class="input-text qty">
-                                <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                        class="increase items-count" type="button">
-                                    <i class="lnr lnr-chevron-up"></i>
-                                </button>
-                                <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                        class="reduced items-count" type="button">
-                                    <i class="lnr lnr-chevron-down"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td>
-                            <h5>@String.Format("{0:0,0}", item.ThanhTien) VNĐ</h5>
-                        </td>
-                    </tr>
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="@item.AnhSanPham" style="width:100px" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>@item.TenSanPham</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>@String.Format("{0:0,0}", item.DonGia) VNĐ</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <input type="text" name="qty" id="sst" min="1" maxlength="12" value="@item.SoLuong" title="Số lượng:"
+                                               class="input-text qty" readonly data-id="@item.MaSanPham">
+                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                                class="increase items-count" type="button">
+                                            <i class="lnr lnr-chevron-up"></i>
+                                        </button>
+                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                                class="reduced items-count" type="button">
+                                            <i class="lnr lnr-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 class="checkoutTT">@String.Format("{0:0,0}", item.ThanhTien) VNĐ</h5>
+                                </td>
+                            </tr>
                         }
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="gray_btn" href="#">Update Cart</a>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <div class="cupon_text d-flex align-items-center">
-                                    <input type="text" placeholder="Coupon Code">
-                                    <a class="primary-btn" href="#">Apply</a>
-                                    <a class="gray_btn" href="#">Close Coupon</a>
-                                </div>
-                            </td>
-                        </tr>
+
                         <tr>
                             <td></td>
                             <td></td>
@@ -89,47 +76,17 @@
                                 <h5>Subtotal</h5>
                             </td>
                             <td>
-                                <h5>@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</h5>
+                                <h5 class="checkout">@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</h5>
                             </td>
                         </tr>
-                        <tr class="shipping_area">
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <h5>Shipping</h5>
-                            </td>
-                            <td>
-                                <div class="shipping_box">
-                                    <ul class="list">
-                                        <li><a href="#">Flat Rate: $5.00</a></li>
-                                        <li><a href="#">Free Shipping</a></li>
-                                        <li><a href="#">Flat Rate: $10.00</a></li>
-                                        <li class="active"><a href="#">Local Delivery: $2.00</a></li>
-                                    </ul>
-                                    <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                    <select class="shipping_select">
-                                        <option value="1">Bangladesh</option>
-                                        <option value="2">India</option>
-                                        <option value="4">Pakistan</option>
-                                    </select>
-                                    <select class="shipping_select">
-                                        <option value="1">Select a State</option>
-                                        <option value="2">Select a State</option>
-                                        <option value="4">Select a State</option>
-                                    </select>
-                                    <input type="text" placeholder="Postcode/Zipcode">
-                                    <a class="gray_btn" href="#">Update Details</a>
-                                </div>
-                            </td>
-                        </tr>
+
                         <tr class="out_button_area">
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="#">Continue Shopping</a>
-                                    <a class="primary-btn" href="#">Proceed to checkout</a>
+                                    <a style="margin-right: 30px" class="gray_btn" href="#">Tiếp tục mua</a>
+                                    <a class="primary-btn" href="#">Tiến hành thanh toán</a>
                                 </div>
                             </td>
                         </tr>
@@ -140,3 +97,44 @@
     </div>
 </section>
 <!--================End Cart Area =================-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    var qtyClick = $('.product_count');
+
+    qtyClick.on('click', '.items-count', function () {
+        $('.product_count').each(function () {
+            var sl = $('#sst').val();
+            var id = $('#sst').data("id");
+
+            sl = $(this).find('input').val();
+            id = $(this).find('input').data("id");
+
+            $.ajax({
+                url: "UpdateQty",
+                data: { id: id, sl: sl },
+                datatype: "json",
+                type: "POST",
+                success: function (response) {
+                    if (response.status != null) {
+
+                        $('.checkoutTT').html(formatNumber(response.status.ThanhTien, '.', ',') + ' VNĐ');
+                        $('.checkout').html(formatNumber(response.status.TongTien, '.', ',') + 'VNĐ');
+                    }
+                }
+            });
+        });
+    });
+
+    function formatNumber(nStr, decSeperate, groupSeperate) {
+        nStr += '';
+        x = nStr.split(decSeperate);
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+        }
+        return x1 + x2;
+    }
+</script>

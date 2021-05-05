@@ -736,6 +736,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shop\ProductsOfCategory.cshtml" />
     <Content Include="Views\Cart\GioHangPart.cshtml" />
+    <Content Include="Views\Shop\CategoriesPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

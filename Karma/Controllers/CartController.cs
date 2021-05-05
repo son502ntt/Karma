@@ -159,5 +159,23 @@ namespace Karma.Controllers
             ViewBag.TongSoLuong = TongSoLuong();
             return PartialView(listCart);
         }
+
+        [HttpPost]
+        public JsonResult UpdateQty(string id, int sl)
+        {
+            List<Cart> listCart = GetCart();
+            //bug get id
+            Cart cart = listCart.SingleOrDefault(m => m.MaSanPham == id);
+            cart.SoLuong = sl;
+
+            cart.ThanhTien = cart.SoLuong * cart.DonGia;
+            cart.TongTien = TongTien();
+
+            var result = cart;
+            return Json(new
+            {
+                status = result
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
