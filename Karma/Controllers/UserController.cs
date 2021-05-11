@@ -172,7 +172,6 @@ namespace Karma.Controllers
             user = new FireSharp.FirebaseClient(config);
             FirebaseResponse responseUser = user.Get("Customers");
             dynamic dataUser = JsonConvert.DeserializeObject<dynamic>(responseUser.Body);
-            // doi ty suy nghi cai reutrn nayok
             foreach (var item in dataUser)
             {
                 var list = JsonConvert.DeserializeObject<Customer>(((JProperty)item).Value.ToString());
@@ -182,7 +181,7 @@ namespace Karma.Controllers
                     {
                         if (login.RememberMe == true)
                         {
-                            Session["User"] = login.Email;
+                            Session["User"] = list;
                             HttpCookie cookie = new HttpCookie("Remember");
                             cookie["Email"] = login.Email;
                             cookie["Pass"] = login.Password;
@@ -190,6 +189,7 @@ namespace Karma.Controllers
                             cookie.Expires.AddYears(1);
                             HttpContext.Response.Cookies.Add(cookie);
                         }
+                        Session["User"] = list; //them sesion de k can remember me
                         return RedirectToAction("Index", "Home");
                     }
                     ViewBag.MessVRF = "Email chưa đươc kích hoạt";

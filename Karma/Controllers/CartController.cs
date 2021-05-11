@@ -177,5 +177,66 @@ namespace Karma.Controllers
                 status = result
             }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public ActionResult Checkout()
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "User");
+            else
+            {
+                List<Cart> listCart = GetCart();
+                if(listCart.Count == 0)
+                {
+                    Response.Write("<script language='Javascript'>alert('Giỏ hàng hiện đang rỗng !!!'); location.href='/Shop/ShopCategory';</script>");
+                }
+                else
+                {
+                    ViewBag.TongTien = TongTien();
+                    return View(listCart);
+                }
+                return View();
+            }
+        }
+        [HttpPost]
+        public JsonResult Checkout(string id)
+        {
+            List<Cart> listCart = GetCart();
+            Customer kh = (Customer)Session["User"];
+            Bill bill = new Bill();
+            bill.MaDH = Guid.NewGuid().ToString();
+            bill.IdKH = kh.ID;
+            bill.NgayGD = DateTime.Now.Date;
+            bill.TongSoLuong = TongSoLuong();
+            bill.TongTien = TongTien();
+
+            products = new FireSharp.FirebaseClient(config);
+            PushResponse billResponse = products.Push("Bill/", bill);
+            foreach(var item in listCart)
+            {
+                BillDetail billDetail = new BillDetail();
+                billDetail.MaDH = bill.MaDH;
+                billDetail.MaSanPham = item.MaSanPham;
+                billDetail.TenSanPham = item.TenSanPham;
+                billDetail.SoLuong = item.SoLuong;
+                billDetail.ThanhTien = item.ThanhTien;
+
+                PushResponse detailResponse = products.Push("BillDetail/", billDetail);
+
+                FirebaseResponse productresponse = products.Get("Products/" + item.MaSanPham);
+                Products data = JsonConvert.DeserializeObject<Products>(productresponse.Body);
+                data.SoLuong = data.SoLuong - billDetail.SoLuong;
+                SetResponse response = products.Set("Products/" + item.MaSanPham, data);
+            }
+            Session["Cart"] = null;
+            return Json(new
+            {
+
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Confirmation()
+        {
+            return View();
+        }
     }
 }

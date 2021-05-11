@@ -56,11 +56,23 @@
                             <i class="lnr lnr-chevron-down"></i>
                         </button>
                     </div>
-                    <div class="card_area d-flex align-items-center">
-                        <a class="primary-btn" onclick="AddToCart('@Model.MaSanPham')"> Add to Cart</a>
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-                    </div>
+                    @if (Session["User"] == null)
+                    {
+                        <div class="card_area d-flex align-items-center">
+                            <a class="primary-btn" href="@Url.Action("Login","User")">Đăng nhập để mua hàng</a>             
+                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card_area d-flex align-items-center">                         
+                            <a class="primary-btn" onclick="AddToCart('@Model.MaSanPham')">Thêm vào giỏ hàng</a>
+                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                        </div>
+                    }
+
                     <div class="alert alert-success hiden-success" id="success-alert" style="position: fixed">
                         <button type="button" class="close" data-dismiss="alert">x</button>
                         Thêm vào giỏ hàng thành công <a href="@Url.Action("ShoppingCart","Cart")">Vào giỏ hàng</a>

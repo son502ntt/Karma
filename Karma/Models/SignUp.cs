@@ -33,7 +33,7 @@ namespace Karma.Models
         public string Avatar { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
         [Required]
         [Display(Name = "Xác nhận mật khẩu")]

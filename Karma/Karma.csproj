@@ -323,6 +323,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bill.cs" />
+    <Compile Include="Models\BillDetail.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -737,6 +739,8 @@
     <Content Include="Views\Shop\ProductsOfCategory.cshtml" />
     <Content Include="Views\Cart\GioHangPart.cshtml" />
     <Content Include="Views\Shop\CategoriesPart.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Cart\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

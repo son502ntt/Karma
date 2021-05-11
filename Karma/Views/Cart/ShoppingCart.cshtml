@@ -53,18 +53,16 @@
                                     <div class="product_count">
                                         <input type="text" name="qty" id="sst" min="1" maxlength="12" value="@item.SoLuong" title="Số lượng:"
                                                class="input-text qty" readonly data-id="@item.MaSanPham">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                                class="increase items-count" type="button">
+                                        <button class="increase items-count" type="button" id="up" name="@item.MaSanPham">
                                             <i class="lnr lnr-chevron-up"></i>
                                         </button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                                class="reduced items-count" type="button">
+                                        <button class="reduced items-count" type="button" id="down" name="@item.MaSanPham">
                                             <i class="lnr lnr-chevron-down"></i>
                                         </button>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5 class="checkoutTT">@String.Format("{0:0,0}", item.ThanhTien) VNĐ</h5>
+                                    <h5 class="checkoutTT_@item.MaSanPham">@String.Format("{0:0,0}", item.ThanhTien) VNĐ</h5>
                                 </td>
                             </tr>
                         }
@@ -85,8 +83,8 @@
                             <td></td>
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a style="margin-right: 30px" class="gray_btn" href="#">Tiếp tục mua</a>
-                                    <a class="primary-btn" href="#">Tiến hành thanh toán</a>
+                                    <a style="margin-right: 30px" class="gray_btn" href="@Url.Action("ShopCategory","Shop")">Tiếp tục mua</a>
+                                    <a class="primary-btn" href="@Url.Action("Checkout","Cart")">Tiến hành thanh toán</a>
                                 </div>
                             </td>
                         </tr>
@@ -101,6 +99,23 @@
 
 <script>
     var qtyClick = $('.product_count');
+    qtyClick.on('click', '.items-count', function () {
+        var $btn = $(this);
+
+        var oldVal = $btn.parent().find('input').val();
+        if ($btn.hasClass('increase')) {
+            var newVal = parseFloat(oldVal) + 1;
+        } else if ($btn.hasClass('reduced')) {
+            if (oldVal > 1) {
+                var newVal = parseFloat(oldVal) - 1;
+            } else {
+                newVal = 1;
+            }
+        } else {
+            var newVal = parseFloat(oldVal);
+        }
+        $btn.parent().find('input').val(newVal);
+    });
 
     qtyClick.on('click', '.items-count', function () {
         $('.product_count').each(function () {
@@ -117,9 +132,10 @@
                 type: "POST",
                 success: function (response) {
                     if (response.status != null) {
-
-                        $('.checkoutTT').html(formatNumber(response.status.ThanhTien, '.', ',') + ' VNĐ');
+                        var getId = "checkoutTT_" + response.status.MaSanPham;
+                        $(getId).html(formatNumber(response.status.ThanhTien, '.', ',') + ' VNĐ');
                         $('.checkout').html(formatNumber(response.status.TongTien, '.', ',') + 'VNĐ');
+                        location.reload(); 
                     }
                 }
             });
@@ -137,4 +153,5 @@
         }
         return x1 + x2;
     }
+
 </script>

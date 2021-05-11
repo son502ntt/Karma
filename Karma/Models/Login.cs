@@ -15,7 +15,7 @@ namespace Karma.Models
         public string Email { get; set; }
 
 
-        [Display(Name = "Password")]
+        [Display(Name = "Mật khẩu")]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }
