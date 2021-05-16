@@ -6,11 +6,7 @@
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Checkout</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="single-product.html">Checkout</a>
-                </nav>
+                <h1>Thanh toán</h1>              
             </div>
         </div>
     </div>
@@ -21,8 +17,8 @@
     <div class="container">
         <div class="billing_details">
             <div class="row">
-                <div class="col-lg-8">
-                    <h3>Billing Details</h3>
+                <div class="col-lg-6">
+                    <h3>Chi tiết đơn hàng</h3>
                     <form class="row contact_form" action="#" method="post" novalidate="novalidate">
                         <div class="col-md-12 form-group p_star">
                             <input type="text" class="form-control" id="last" name="name" value="@kh.HoTen">
@@ -38,18 +34,23 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                     <div class="order_box">
-                        <h2>Your Order</h2>
+                        <h2>Đơn hàng của bạn</h2>
                         <ul class="list">
-                            <li><a href="#">Product <span>Total</span></a></li>
+                            <li><a href="#">Sản phẩm <span>Tạm tính</span></a></li>
                             @foreach (var item in Model)
                             {
-                                <li><a href="#">@item.TenSanPham<span class="middle">@item.SoLuong</span> <span class="last">@String.Format("{0:0,0}", item.ThanhTien) VNĐ</span></a></li>
+                                <li>
+                                    <a href="#">
+                                     @item.TenSanPham<span class="middle">SL: @item.SoLuong</span>
+                                    <span class="last">@String.Format("{0:0,0}", item.ThanhTien) VNĐ</span>
+                                    </a>
+                            </li>
                             }
                         </ul>
                         <ul class="list list_2">
-                            <li>Total <span>@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</span></li>
+                            <li><a href="">Tổng tiền<span>@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</span></a></li>
                         </ul>
                         <a class="primary-btn" onclick="checkOut()">Thanh toán</a>
                     </div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Karma.Models.BillDetail>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detail</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaDH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenSanPham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThanhTien)
+            </th>
+        </tr>
+    </thead>
+    @{
+
+        if (Model == null)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        <p> Hiện không có dữ liệu !!!</p>
+                    </td>
+                </tr>
+            </tbody>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaDH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenSanPham)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ThanhTien)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MaCT })
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        }
+    }
+</table>

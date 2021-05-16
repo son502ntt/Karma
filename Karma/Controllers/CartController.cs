@@ -164,7 +164,6 @@ namespace Karma.Controllers
         public JsonResult UpdateQty(string id, int sl)
         {
             List<Cart> listCart = GetCart();
-            //bug get id
             Cart cart = listCart.SingleOrDefault(m => m.MaSanPham == id);
             cart.SoLuong = sl;
 
@@ -209,23 +208,24 @@ namespace Karma.Controllers
             bill.TongSoLuong = TongSoLuong();
             bill.TongTien = TongTien();
 
-            products = new FireSharp.FirebaseClient(config);
-            PushResponse billResponse = products.Push("Bill/", bill);
-            foreach(var item in listCart)
+            products = new FireSharp.FirebaseClient(config);    
+            SetResponse billResponse = products.Set("Bill/" + bill.MaDH, bill);
+            foreach (var item in listCart)
             {
                 BillDetail billDetail = new BillDetail();
                 billDetail.MaDH = bill.MaDH;
+                billDetail.MaCT = Guid.NewGuid().ToString();
                 billDetail.MaSanPham = item.MaSanPham;
                 billDetail.TenSanPham = item.TenSanPham;
                 billDetail.SoLuong = item.SoLuong;
                 billDetail.ThanhTien = item.ThanhTien;
 
-                PushResponse detailResponse = products.Push("BillDetail/", billDetail);
-
+                SetResponse detailResponse = products.Set("BillDetail/" + billDetail.MaCT, billDetail);
                 FirebaseResponse productresponse = products.Get("Products/" + item.MaSanPham);
                 Products data = JsonConvert.DeserializeObject<Products>(productresponse.Body);
                 data.SoLuong = data.SoLuong - billDetail.SoLuong;
                 SetResponse response = products.Set("Products/" + item.MaSanPham, data);
+
             }
             Session["Cart"] = null;
             return Json(new
@@ -237,6 +237,20 @@ namespace Karma.Controllers
         public ActionResult Confirmation()
         {
             return View();
+        }
+        [HttpPost]
+        public JsonResult RemoveItem(string MaSP)
+        {
+          
+            List<Cart> listCart = GetCart();
+            Cart cart = listCart.SingleOrDefault(m => m.MaSanPham == MaSP);           
+            listCart.RemoveAll(m => m.MaSanPham == MaSP);
+            cart.TongTien = TongTien();
+            var result = cart;    
+            return Json(new
+            {
+                status = result
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

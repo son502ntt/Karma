@@ -38,8 +38,8 @@ namespace Karma.Areas.Admin.Controllers
             else
             {
                 client = new FireSharp.FirebaseClient(config);
-                FirebaseResponse response = client.Get("Customers");// get json
-                dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);// boc tach json
+                FirebaseResponse response = client.Get("Customers");
+                dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
                 if (data != null)
                 {
                     var list = new List<Customer>();
@@ -114,9 +114,9 @@ namespace Karma.Areas.Admin.Controllers
         private bool AddCustomerToFirebase(Customer customer)
         {
             customer.ID = Guid.NewGuid().ToString();
-            client = new FireSharp.FirebaseClient(config);// lấy quyến truy data
-            FirebaseResponse responseUser = client.Get("Customers");// lấy dât từ bảng "" => json
-            dynamic dataUser = JsonConvert.DeserializeObject<dynamic>(responseUser.Body);// bóc tách dữ liệu từ json
+            client = new FireSharp.FirebaseClient(config);
+            FirebaseResponse responseUser = client.Get("Customers");
+            dynamic dataUser = JsonConvert.DeserializeObject<dynamic>(responseUser.Body);
             if (dataUser == null)
             {
                 var data1 = customer;

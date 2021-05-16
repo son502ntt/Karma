@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Karma.Models.Bill>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaDH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdKH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayGD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongSoLuong)
+            </th>
+        </tr>
+    </thead>
+    @{
+
+        if (Model == null)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        <p> Hiện không có dữ liệu !!!</p>
+                    </td>
+                </tr>
+            </tbody>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaDH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdKH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayGD)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TongTien)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TongSoLuong)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detail", "Detail", new { id = item.MaDH })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteBill", new { id = item.MaDH })
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        }
+    }
+</table>

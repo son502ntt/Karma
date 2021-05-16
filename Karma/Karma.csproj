@@ -307,10 +307,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BillController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\IndexController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Models\Bill.cs" />
+    <Compile Include="Areas\Admin\Models\BillDetail.cs" />
     <Compile Include="Areas\Admin\Models\Customer.cs" />
     <Compile Include="Areas\Admin\Models\Login.cs" />
     <Compile Include="Areas\Admin\Models\Product.cs" />
@@ -686,6 +689,8 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Account\SignUp.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Bill\Detail.cshtml" />
     <None Include="Assets\User\Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Assets\User\Scripts\countdown.js" />
     <Content Include="Assets\User\Scripts\gmaps.min.js" />

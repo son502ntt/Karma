@@ -4,11 +4,7 @@
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Login/Register</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Login/Register</a>
-                </nav>
+                <h1>Đăng nhập/Đăng ký</h1>         
             </div>
         </div>
     </div>
@@ -22,16 +18,16 @@
                 <div class="login_box_img">
                     <img class="img-fluid" src="~/Assets/User/img/login.jpg" alt="">
                     <div class="hover">
-                        <h4>New to our website?</h4>
-                        <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-                        @Html.ActionLink("Create an Account", "SignUp", "User", new { @class = "primary-btn" })
+                        <h4>Là người mới?</h4>
+                        <p>Có những tiến bộ trong khoa học và công nghệ hàng ngày, và một ví dụ điển hình về điều này là</p>
+                        @Html.ActionLink("Tạo một tài khoản", "SignUp", "User", new { @class = "primary-btn" })
 
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner">
-                    <h3>Log in to enter</h3>
+                    <h3>Đăng nhập để tiếp tục</h3>
                     @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "row login_form" }))
                     {
                         @Html.AntiForgeryToken()
@@ -39,26 +35,25 @@
                         <div class="col-md-12 form-group">
 
 
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter email", type = "email", onfocus = "this.placeholder = ''", onblur = "this.placeholder = 'Enter Email'", Value = ViewBag.Email } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập email", type = "email", onfocus = "this.placeholder = ''", onblur = "this.placeholder = 'Enter Email'", Value = ViewBag.Email } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-12 form-group">
 
 
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password", onfocus = "this.placeholder = ''", onblur = "this.placeholder = 'Password'", Value = ViewBag.Password } })
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Mật khẩu", type = "password", onfocus = "this.placeholder = ''", onblur = "this.placeholder = 'Password'", Value = ViewBag.Password } })
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
                                 <label for="f-option2">
                                     @Html.CheckBoxFor(model => model.RememberMe)
-                                    Keep me logged in
+                                    Remember Me
                                 </label>
                             </div>
                         </div>
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="primary-btn">Log In</button>
-                            <a href="#">Forgot Password?</a>
+                            <button type="submit" value="submit" class="primary-btn">Đăng nhập</button>            
                         </div>
                     }
                 </div>

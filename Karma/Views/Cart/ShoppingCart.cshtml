@@ -8,11 +8,7 @@
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Shopping Cart</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Cart</a>
-                </nav>
+                <h1>Giỏ hàng</h1>             
             </div>
         </div>
     </div>
@@ -26,57 +22,61 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Tổng tiền</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="@item.AnhSanPham" style="width:100px" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>@item.TenSanPham</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>@String.Format("{0:0,0}", item.DonGia) VNĐ</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <input type="text" name="qty" id="sst" min="1" maxlength="12" value="@item.SoLuong" title="Số lượng:"
-                                               class="input-text qty" readonly data-id="@item.MaSanPham">
-                                        <button class="increase items-count" type="button" id="up" name="@item.MaSanPham">
-                                            <i class="lnr lnr-chevron-up"></i>
-                                        </button>
-                                        <button class="reduced items-count" type="button" id="down" name="@item.MaSanPham">
-                                            <i class="lnr lnr-chevron-down"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5 class="checkoutTT_@item.MaSanPham">@String.Format("{0:0,0}", item.ThanhTien) VNĐ</h5>
-                                </td>
-                            </tr>
-                        }
-
                         <tr>
-                            <td></td>
-                            <td></td>
                             <td>
-                                <h5>Subtotal</h5>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        <img src="@item.AnhSanPham" style="width:100px" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <p>@item.TenSanPham</p>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                <h5 class="checkout">@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</h5>
+                                <h5>@String.Format("{0:0,0}", item.DonGia) VNĐ</h5>
+                            </td>
+                            <td>
+                                <div class="product_count">
+                                    <input type="text" name="qty" id="sst" min="1" maxlength="12" value="@item.SoLuong" title="Số lượng:"
+                                           class="input-text qty" readonly data-id="@item.MaSanPham">
+                                    <button class="increase items-count" type="button" id="up" name="@item.MaSanPham">
+                                        <i class="lnr lnr-chevron-up"></i>
+                                    </button>
+                                    <button class="reduced items-count" type="button" id="down" name="@item.MaSanPham">
+                                        <i class="lnr lnr-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td>
+                                <h5 class="checkoutTT_@item.MaSanPham">@String.Format("{0:0,0}", item.ThanhTien) VNĐ</h5>
+                            </td>
+                            <td>
+                                <a class="primary-btn" onclick="deleteItem('@item.MaSanPham')">Xóa</a>
                             </td>
                         </tr>
+                        }
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <h5>Tổng tiền</h5>
+                        </td>
+                        <td>
+                            <h5 class="checkout">@String.Format("{0:0,0}", ViewBag.TongTien) VNĐ</h5>
+                        </td>
+                        
+                    </tr>
 
                         <tr class="out_button_area">
                             <td></td>
@@ -154,4 +154,17 @@
         return x1 + x2;
     }
 
+    function deleteItem(obj) {
+        var MaSP = obj;
+        $.ajax({
+            url: "/Cart/RemoveItem",
+            data: { MaSP: MaSP },
+            dataType: "json",
+            type: "POST",
+            success: function () {
+                alert('Xóa sản phẩm thành công');
+                location.reload();
+            }
+        });
+    }
 </script>

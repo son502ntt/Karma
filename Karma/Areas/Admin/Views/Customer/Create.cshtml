@@ -76,13 +76,6 @@
         </div>
     </div>
 
-    @*<div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-
-            </div>
-        </div>*@
-    @*<input type="button" value="Show GS Image" onclick="ShowImage()" class="btn btn-default" />*@
 </div>
     //<img id="images" height="200" width="200" src="" />
 }
@@ -97,44 +90,4 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-storage.js"></script>
-
-@*<script>
-    try {
-        var firebaseConfig = {
-            apiKey: "AIzaSyBIumAxnSssgty3e16QnkzmBVB3GqFvqqM",
-            authDomain: "karma-ddc59.firebaseapp.com",
-            databaseURL: "https://karma-ddc59-default-rtdb.firebaseio.com",
-            projectId: "karma-ddc59",
-            storageBucket: "karma-ddc59.appspot.com",
-            messagingSenderId: "696207443864",
-            appId: "1:696207443864:web:fb7cba63250112e70bcded",
-            measurementId: "G-LNKZK3BGTL"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        var storage = firebase.storage();
-    }
-    catch (e) {
-        console.log(e.toString());
-    }
-    $(document).ready(function (ShowImage) {function ShowImage() {
-        var imageLink = "gs://karma-ddc59.appspot.com/images/lotte.jpg";
-        try {
-            storage.refFromURL(imageLink.toString()).getDownloadURL().then(function (url) {
-                console.log(url)
-                var img = document.getElementById('images');
-                img.src = url.toString();
-            }).catch(function (error) {
-                console.log(error.toString());
-            });
-        }
-        catch (e) {
-            console.log(e.toString());
-        }
-    }
-        console.log("ready!");
-    });
-    
-</script>*@
 

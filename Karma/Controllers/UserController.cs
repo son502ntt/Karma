@@ -134,16 +134,15 @@ namespace Karma.Controllers
         public ActionResult VerifyEmail(SignUp userSignUp)
         {
             var result = Session["Check"].ToString();
-            user = new FireSharp.FirebaseClient(config);// lấy quyến truy data
-            FirebaseResponse responseUser = user.Get("Customers");// lấy dât từ bảng "" => json
-            dynamic dataUser = JsonConvert.DeserializeObject<dynamic>(responseUser.Body);// bóc tách dữ liệu từ json
+            user = new FireSharp.FirebaseClient(config);
+            FirebaseResponse responseUser = user.Get("Customers");
+            dynamic dataUser = JsonConvert.DeserializeObject<dynamic>(responseUser.Body);
             foreach (var item in dataUser)
             {
                 var list = JsonConvert.DeserializeObject<Customer>(((JProperty)item).Value.ToString());
                 if (list.CodeActive == result)
                 {
-                    list.CodeActive = null;
-                    //FirebaseResponse responseId = user.Get("Customers/" + list.ID);
+                    list.CodeActive = null;            
                     SetResponse response = user.Set("Customers/" + list.ID, list);
                     ViewBag.Success = "Kích hoạt tài khoản thành công";
                      return View(userSignUp);
@@ -189,7 +188,7 @@ namespace Karma.Controllers
                             cookie.Expires.AddYears(1);
                             HttpContext.Response.Cookies.Add(cookie);
                         }
-                        Session["User"] = list; //them sesion de k can remember me
+                        Session["User"] = list; 
                         return RedirectToAction("Index", "Home");
                     }
                     ViewBag.MessVRF = "Email chưa đươc kích hoạt";

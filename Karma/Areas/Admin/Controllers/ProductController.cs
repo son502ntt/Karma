@@ -33,21 +33,26 @@ namespace Karma.Areas.Admin.Controllers
         // GET: Admin/Product
         public ActionResult Index()
         {
-            client = new FireSharp.FirebaseClient(config);
-            FirebaseResponse response = client.Get("Products");// get json
-            dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);// boc tach json
-            if (data != null)
-            {
-                var list = new List<Product>();
-                foreach (var item in data)
-                {
-                    list.Add(JsonConvert.DeserializeObject<Product>(((JProperty)item).Value.ToString()));
-                }
-                return View(list);
-            }
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             else
             {
-                return View();
+                client = new FireSharp.FirebaseClient(config);
+                FirebaseResponse response = client.Get("Products");
+                dynamic data = JsonConvert.DeserializeObject<dynamic>(response.Body);
+                if (data != null)
+                {
+                    var list = new List<Product>();
+                    foreach (var item in data)
+                    {
+                        list.Add(JsonConvert.DeserializeObject<Product>(((JProperty)item).Value.ToString()));
+                    }
+                    return View(list);
+                }
+                else
+                {
+                    return View();
+                }
             }
         }
         public ActionResult Create()
@@ -81,8 +86,8 @@ namespace Karma.Areas.Admin.Controllers
                 string path = Path.Combine(Server.MapPath("~/Assets/User/img/"), file.FileName);
                 file.SaveAs(path);
                 stream = new FileStream(Path.Combine(path), FileMode.Open);
-                var result = await Upload(stream, file.FileName);// thang nay co link thang upload no goi 2 lan
-                product.AnhSanPham = result; //no add link vo model cua anh san pham thi no lay dc link r no show ra th
+                var result = await Upload(stream, file.FileName);
+                product.AnhSanPham = result; 
                 AddProductToFirebase(product);
             }
             return RedirectToAction("Index","Product");

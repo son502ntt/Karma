@@ -57,7 +57,6 @@ namespace Karma.Areas.Admin.Controllers
                 if (this.Request.IsAuthenticated)
                 {
 
-                    //  return this.RedirectToLocal(returnUrl);
                 }
             }
             catch (Exception ex)
@@ -114,8 +113,7 @@ namespace Karma.Areas.Admin.Controllers
                 // Info
                 Console.Write(ex);
             }
-
-            // If we got this far, something failed, redisplay form
+     
             return this.View(model);
         }
         private void SignInUser(string email, string token, bool isPersistent)
@@ -128,11 +126,7 @@ namespace Karma.Areas.Admin.Controllers
                 // Setting
                 claims.Add(new Claim(ClaimTypes.Email, email));
                 claims.Add(new Claim(ClaimTypes.Authentication, token));
-                var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                //var ctx = Request.GetOwinContext();
-                //var authenticationManager = ctx.Authentication;
-                // Sign In.
-                //authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
+                var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);             
             }
             catch (Exception ex)
             {
@@ -160,7 +154,7 @@ namespace Karma.Areas.Admin.Controllers
         }
         public ActionResult LogOut()
         {
-            Session["User"] = null; // remove session
+            Session["User"] = null;
             if (Request.Cookies["user"] != null)
             {
                 var user = new HttpCookie("user")
@@ -169,8 +163,8 @@ namespace Karma.Areas.Admin.Controllers
                     Value = null
                 };
                 Response.SetCookie(user);
-            } // Xoa cookie 
-            return RedirectToAction("Login", "Account"); //Chuyen huong sang trang dang nhap
+            } 
+            return RedirectToAction("Login", "Account"); 
         }
     }
 }

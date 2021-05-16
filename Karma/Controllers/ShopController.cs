@@ -41,7 +41,7 @@ namespace Karma.Controllers
                 var dataShop = new List<Products>();
                 foreach (var item in dataProducts)
                 {
-                    var data = JsonConvert.DeserializeObject<Products>(((JProperty)item).Value.ToString());// convert tostring r bo vao product
+                    var data = JsonConvert.DeserializeObject<Products>(((JProperty)item).Value.ToString());
                     dataShop.Add(data);
                 }
                 
@@ -60,7 +60,7 @@ namespace Karma.Controllers
             FirebaseResponse responseCategory = products.Get("Categorys/" + dataProduct.MaLoai);
             dynamic dataCategory = JsonConvert.DeserializeObject<Categories>(responseCategory.Body);
             dataProduct.TenLoai = dataCategory.TenLoai;
-            return View(dataProduct);// dung model
+            return View(dataProduct);
         }
         public ActionResult ProductsOfCategory(string id, int? page)
         {
